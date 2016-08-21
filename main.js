@@ -1,6 +1,8 @@
 const Elevator = require('./Elevator');
+const ElevatorLogger = require('./ElevatorLogger');
 
 const elevator = new Elevator(1);
+const elevatorLogger = new ElevatorLogger(elevator);
 const sequences = [
   [1,2,7,3],
   [],
@@ -15,17 +17,9 @@ console.log('# direction changes: 2');
 
 elevator.moveAlongSequences(sequences);
 
-const movementString = elevator.floorsVisited.reduce((movementString, nextMovement, idx, arr) => {
-  const updatedMovementString = movementString + `${nextMovement}`;
-  return (idx < arr.length - 1) ?
-    `${updatedMovementString} -> ` :
-    `${updatedMovementString}`;
-}, '');
-
-newLine();
 newLine();
 console.log('ACTUAL');
-console.log(`Path: ${movementString}`);
+console.log(`Path: ${elevatorLogger.buildMovementString()}`);
 console.log(`# floors passed: ${elevator.numberOfFloorsPassed}`);
 console.log(`# direction changes: ${elevator.numberOfDirectionChanges}`);
 
