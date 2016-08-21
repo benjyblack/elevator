@@ -2,8 +2,9 @@
   "name": "elevator-problem",
   "version": "1.0.0",
   "description": "",
-  "main": "Elevator.js",
+  "main": "main.js",
   "scripts": {
+    "start": "node ./main.js",
     "test": "./node_modules/mocha/bin/mocha ."
   },
   "author": "Ben Black",

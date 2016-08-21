@@ -22,11 +22,11 @@ class Elevator {
   moveAlongSequence(sequence) {
     const elevatorRouter = new ElevatorRouter(this);
     const optimalSequence = elevatorRouter.optimizeSequence(sequence);
-    optimalSequence.forEach(this.move);
+    optimalSequence.forEach(this.moveToFloor.bind(this));
   }
 
   moveAlongSequences(sequences) {
-    sequences.forEach(moveAlongSequence);
+    sequences.forEach(this.moveAlongSequence.bind(this));
   }
 
   numberOfFloorsPassed() {
