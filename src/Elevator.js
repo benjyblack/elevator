@@ -15,9 +15,8 @@ class Elevator {
   }
 
   get currentDirection() {
-    const numMovements = this._floorsVisited.length;
     // default to going up if haven't moved yet
-    if (numMovements < 2) return 'UP';
+    if (this._floorsVisited.length < 2) return 'UP';
 
     const [lastFloor, currentFloor] = this._floorsVisited.slice(-2);
 
