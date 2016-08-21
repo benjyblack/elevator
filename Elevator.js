@@ -1,4 +1,5 @@
 const ElevatorRouter = require('./ElevatorRouter');
+const _ = require('lodash');
 
 class Elevator {
   constructor(isGoingUp = true, currentFloor = 1) {
@@ -31,26 +32,25 @@ class Elevator {
   numberOfFloorsPassed() {
     if (this.movementHistory.length === 1) return 0;
 
-    return this.movementHistory.reduce((totalFloorsPassed, nextFloor, idx, arr) => {
+    return this.movementHistory.reduce((totalFloorsPassed, nextFloor, idx, movements) => {
       if (idx === 0) return totalFloorsPassed;
-      return totalFloorsPassed + Math.abs(nextFloor - arr[idx - 1])
+      return totalFloorsPassed + Math.abs(nextFloor - movements[idx - 1])
     }, 0);
   }
 
   numberOfDirectionChanges() {
-    if (this.movementHistory.length < 3) return 0;
+    // can't have changed direction if has only moved one floor
+    if (this.movementHistory.length <= 2) return 0;
 
-    return this.movementHistory.reduce((totalDirectionChanges, nextFloor, idx, arr) => {
+    return this.movementHistory.reduce((totalDirectionChanges, nextFloor, idx, movements) => {
       if (idx < 2) return totalDirectionChanges;
 
-      const lastFloor = arr[idx - 1];
-      const hasBeenGoingUp = lastFloor - arr[idx - 2] > 0;
-      const nextFloorIsAboveLastFloor = (nextFloor - lastFloor) > 0;
+      const currentFloor = movements[idx - 1];
+      const lastFloor = movements[idx - 2];
 
-      if (hasBeenGoingUp && !nextFloorIsAboveLastFloor) return totalDirectionChanges + 1;
-      if (!hasBeenGoingUp && nextFloorIsAboveLastFloor) return totalDirectionChanges + 1;
-
-      return totalDirectionChanges;
+      return _.inRange(currentFloor, lastFloor, nextFloor) ?
+        totalDirectionChanges :
+        totalDirectionChanges + 1;
     }, 0);
   }
 }

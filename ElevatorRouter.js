@@ -9,20 +9,14 @@ class ElevatorRouter {
   optimizeSequence(sequence) {
     return _.chain(sequence)
       .without(this.currentFloor)
-      .partition(requestedFloor => {
-        if (this.isGoingUp) {
-          return requestedFloor > this.currentFloor;
-        } else {
-          return requestedFloor < this.currentFloor;
-        }
-      })
-      .map(floorsInDirection => {
-        return _.sortBy(floorsInDirection, floor => {
-          if (floor > this.currentFloor) return floor;
-          else return -floor;
-        });
-      })
-      .flatten()
+      .partition(requestedFloor =>
+        this.isGoingUp ?
+          requestedFloor > this.currentFloor :
+          requestedFloor < this.currentFloor
+      )
+      .flatMap(floorsInDirection =>
+        _.sortBy(floorsInDirection, floor => floor > this.currentFloor ? floor : -floor)
+      )
       .value();
   }
 }
