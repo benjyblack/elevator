@@ -38,12 +38,12 @@ describe('Elevator', () => {
     });
   });
 
-  describe('#getNumberOfFloorsPassed', () => {
+  describe('#numberOfFloorsPassed', () => {
     context('if the elevator has not yet moved', () => {
       it('has not passed any floors', () => {
         const elevator = new Elevator(true, 1);
 
-        expect(elevator.getNumberOfFloorsPassed()).to.equal(0);
+        expect(elevator.numberOfFloorsPassed()).to.equal(0);
       });
     });
 
@@ -54,7 +54,28 @@ describe('Elevator', () => {
       elevator.moveToFloor(5);
       elevator.moveToFloor(1);
 
-      expect(elevator.getNumberOfFloorsPassed()).to.equal(8);
+      expect(elevator.numberOfFloorsPassed()).to.equal(8);
+    });
+  });
+
+  describe('#numberOfDirectionChanges', () => {
+    context('if the elevator has not yet moved', () => {
+      it('has not made any direction changes', () => {
+        const elevator = new Elevator(true, 1);
+
+        expect(elevator.numberOfDirectionChanges()).to.equal(0);
+      });
+    });
+
+    it('calculates the number of direction changes', () => {
+      const elevator = new Elevator(true, 1);
+
+      elevator.moveToFloor(2);
+      elevator.moveToFloor(5);
+      elevator.moveToFloor(1);
+      elevator.moveToFloor(2);
+
+      expect(elevator.numberOfDirectionChanges()).to.equal(2);
     });
   });
 });
