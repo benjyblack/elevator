@@ -2,10 +2,10 @@ const expect = require('chai').expect;
 const Elevator = require('./Elevator');
 
 describe('Elevator', () => {
-  it('starts in the UP direction', () => {
+  it('starts going up', () => {
     const elevator = new Elevator();
 
-    expect(elevator.currentDirection).to.equal('UP');
+    expect(elevator.isGoingUp).to.be.true;
   });
 
   it('starts at floor 1', () => {
@@ -23,18 +23,38 @@ describe('Elevator', () => {
     });
 
     it('maintains its direction when traveling to a floor in the same direction', () => {
-      const elevator = new Elevator('UP', 1);
+      const elevator = new Elevator(true, 1);
       elevator.moveToFloor(2);
 
-      expect(elevator.currentDirection).to.equal('UP');
+      expect(elevator.isGoingUp).to.be.true;
     });
 
 
     it('changes its direction when traveling to a floor in the opposite direction', () => {
-      const elevator = new Elevator('UP', 2);
+      const elevator = new Elevator(true, 2);
       elevator.moveToFloor(1);
 
-      expect(elevator.currentDirection).to.equal('DOWN');
+      expect(elevator.isGoingUp).to.be.false;
+    });
+  });
+
+  describe('#getNumberOfFloorsPassed', () => {
+    context('if the elevator has not yet moved', () => {
+      it('has not passed any floors', () => {
+        const elevator = new Elevator(true, 1);
+
+        expect(elevator.getNumberOfFloorsPassed()).to.equal(0);
+      });
+    });
+
+    it('calculates the number of floors passed', () => {
+      const elevator = new Elevator(true, 1);
+
+      elevator.moveToFloor(2);
+      elevator.moveToFloor(5);
+      elevator.moveToFloor(1);
+
+      expect(elevator.getNumberOfFloorsPassed()).to.equal(8);
     });
   });
 });
