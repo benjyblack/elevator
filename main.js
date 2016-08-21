@@ -1,5 +1,5 @@
-const Elevator = require('./Elevator');
-const ElevatorLogger = require('./ElevatorLogger');
+const Elevator = require('./src/Elevator');
+const ElevatorLogger = require('./src/ElevatorLogger');
 
 const elevator = new Elevator(1);
 const elevatorLogger = new ElevatorLogger(elevator);

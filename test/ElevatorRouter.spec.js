@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
-const ElevatorRouter = require('./ElevatorRouter');
-const Elevator = require('./Elevator');
+const ElevatorRouter = require('../src/ElevatorRouter');
+const Elevator = require('../src/Elevator');
 
 describe('ElevatorRouter', () => {
   describe('#optimizeSequence', () => {

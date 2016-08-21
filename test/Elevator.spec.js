@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const Elevator = require('./Elevator');
+const Elevator = require('../src/Elevator');
 
 describe('Elevator', () => {
   it('starts going up', () => {

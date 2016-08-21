@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node ./main.js",
-    "test": "./node_modules/mocha/bin/mocha *.spec.js"
+    "test": "./node_modules/mocha/bin/mocha test/"
   },
   "author": "Ben Black",
   "license": "ISC",
