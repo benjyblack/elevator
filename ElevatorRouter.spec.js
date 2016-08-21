@@ -4,8 +4,8 @@ const Elevator = require('./Elevator');
 
 describe('ElevatorRouter', () => {
   describe('#optimizeSequence', () => {
-    it('returns the most efficient sequence', () => {
-      const elevatorRouter = new ElevatorRouter(new Elevator(true, 4));
+    it('returns the sequence with the least number of direction changes', () => {
+      const elevatorRouter = new ElevatorRouter(new Elevator(4));
 
       const optimalSequence = elevatorRouter.optimizeSequence([1,2,3,4,5,6]);
 

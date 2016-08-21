@@ -1,21 +1,20 @@
 const _ = require('lodash');
 
 class ElevatorRouter {
-  constructor({ isGoingUp, currentFloor }) {
-    this.isGoingUp = isGoingUp;
-    this.currentFloor = currentFloor;
+  constructor(elevator) {
+    this.elevator = elevator;
   }
 
   optimizeSequence(sequence) {
     return _.chain(sequence)
-      .without(this.currentFloor)
+      .without(this.elevator.currentFloor)
       .partition(requestedFloor =>
-        this.isGoingUp ?
-          requestedFloor > this.currentFloor :
-          requestedFloor < this.currentFloor
+        this.elevator.currentDirection === 'UP' ?
+          requestedFloor > this.elevator.currentFloor :
+          requestedFloor < this.elevator.currentFloor
       )
       .flatMap(floorsInDirection =>
-        _.sortBy(floorsInDirection, floor => floor > this.currentFloor ? floor : -floor)
+        _.sortBy(floorsInDirection, floor => floor > this.elevator.currentFloor ? floor : -floor)
       )
       .value();
   }

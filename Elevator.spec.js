@@ -5,7 +5,7 @@ describe('Elevator', () => {
   it('starts going up', () => {
     const elevator = new Elevator();
 
-    expect(elevator.isGoingUp).to.be.true;
+    expect(elevator.currentDirection).to.equal('UP');
   });
 
   it('starts at floor 1', () => {
@@ -14,27 +14,28 @@ describe('Elevator', () => {
     expect(elevator.currentFloor).to.equal(1);
   });
 
+  describe('#currentDirection', () => {
+    it('is going up if the current floor is above the last floor', () => {
+      const elevator = new Elevator();
+      elevator.moveToFloor(2);
+
+      expect(elevator.currentDirection).to.equal('UP');
+    });
+
+    it('is going down if the current floor is below the last floor', () => {
+      const elevator = new Elevator(3);
+      elevator.moveToFloor(2);
+
+      expect(elevator.currentDirection).to.equal('DOWN');
+    });
+  });
+
   describe('#moveToFloor', () => {
-    it('can move to another floor', () => {
+    it('changes its current floor when moving', () => {
       const elevator = new Elevator();
       elevator.moveToFloor(2);
 
       expect(elevator.currentFloor).to.equal(2);
-    });
-
-    it('maintains its direction when traveling to a floor in the same direction', () => {
-      const elevator = new Elevator(true, 1);
-      elevator.moveToFloor(2);
-
-      expect(elevator.isGoingUp).to.be.true;
-    });
-
-
-    it('changes its direction when traveling to a floor in the opposite direction', () => {
-      const elevator = new Elevator(true, 2);
-      elevator.moveToFloor(1);
-
-      expect(elevator.isGoingUp).to.be.false;
     });
   });
 
@@ -43,7 +44,7 @@ describe('Elevator', () => {
       it('has not passed any floors', () => {
         const elevator = new Elevator(true, 1);
 
-        expect(elevator.numberOfFloorsPassed()).to.equal(0);
+        expect(elevator.numberOfFloorsPassed).to.equal(0);
       });
     });
 
@@ -54,7 +55,7 @@ describe('Elevator', () => {
       elevator.moveToFloor(5);
       elevator.moveToFloor(1);
 
-      expect(elevator.numberOfFloorsPassed()).to.equal(8);
+      expect(elevator.numberOfFloorsPassed).to.equal(8);
     });
   });
 
@@ -63,7 +64,7 @@ describe('Elevator', () => {
       it('has not made any direction changes', () => {
         const elevator = new Elevator(true, 1);
 
-        expect(elevator.numberOfDirectionChanges()).to.equal(0);
+        expect(elevator.numberOfDirectionChanges).to.equal(0);
       });
     });
 
@@ -75,7 +76,7 @@ describe('Elevator', () => {
       elevator.moveToFloor(1);
       elevator.moveToFloor(2);
 
-      expect(elevator.numberOfDirectionChanges()).to.equal(2);
+      expect(elevator.numberOfDirectionChanges).to.equal(2);
     });
   });
 });
