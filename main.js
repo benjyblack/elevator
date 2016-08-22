@@ -1,8 +1,10 @@
 const Elevator = require('./src/Elevator');
+const ElevatorAnalyzer = require('./src/ElevatorAnalyzer');
 const ElevatorLogger = require('./src/ElevatorLogger');
 
 const elevator = new Elevator(1);
 const elevatorLogger = new ElevatorLogger(elevator);
+const elevatorAnalyzer = new ElevatorAnalyzer(elevator);
 const sequences = [
   [1,2,7,3],
   [],
@@ -20,7 +22,7 @@ elevator.moveAlongSequences(sequences);
 newLine();
 console.log('ACTUAL');
 console.log(`Path: ${elevatorLogger.buildMovementString()}`);
-console.log(`# floors passed: ${elevator.numberOfFloorsPassed}`);
-console.log(`# direction changes: ${elevator.numberOfDirectionChanges}`);
+console.log(`# floors passed: ${elevatorAnalyzer.numberOfFloorsPassed}`);
+console.log(`# direction changes: ${elevatorAnalyzer.numberOfDirectionChanges}`);
 
 function newLine() { console.log(' '); }
